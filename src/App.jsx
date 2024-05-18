@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { BasicNav, NewTodoForm, TodoItem } from './components';
 import { Row } from 'react-bootstrap';
+import { useTodoContext } from './context/TodoContext';
 function App() {
-  const [todos, setTodos] = useState([{ id: 1, title: 'title' }]);
+  const { todos } = useTodoContext();
   return (
     <>
       <BasicNav></BasicNav>

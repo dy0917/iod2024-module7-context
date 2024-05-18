@@ -1,14 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { useTodoContext } from '../context/TodoContext';
 function NewTodoForm({ addTodo }) {
+  const { todoDispatch } = useTodoContext();
   const [todo, setTodo] = useState({ title: 'zcvhjzclvhzklcxvhjzxcvs' });
-
   const sumbit = (e) => {
     e.preventDefault();
 
-    const data = new FormData(e.target);
-    const todo = Object.fromEntries(data);
-
-    addTodo(todo);
+    todoDispatch({ type: 'addTodo', payload: todo });
     setTodo({ title: '' });
   };
 
@@ -29,11 +27,10 @@ function NewTodoForm({ addTodo }) {
             name="title"
             required
             value={todo.title}
-            // value={todo.title}
             onChange={(e) => updateTodo({ title: e.target.value })}
           />
-          <label htmlFor="completed">Completed:</label>
-          <input type="checkbox" id="completed" name="completed" />
+          {/* <label htmlFor="completed">Completed:</label>
+          <input type="checkbox" id="completed" name="completed" /> */}
           <button type="submit">Add</button>
         </form>
       </div>

@@ -1,18 +1,21 @@
-import { useState } from "react";
-
-function UpdateTodoCard({ todo, updateTodo, onCancel }) {
+import { useState } from 'react';
+import { useTodoContext } from '../context/TodoContext';
+function UpdateTodoCard({ todo, onCancel }) {
   const [updatedTodo, setTodo] = useState(todo);
-
+  const { todoDispatch } = useTodoContext();
   const sumbit = (e) => {
     e.preventDefault();
-    console.log('updatedTodo',updatedTodo);
-    updateTodo(updatedTodo);
+    todoDispatch({ type: 'updateTodo', payload: updatedTodo });
     onCancel(false);
   };
 
   const updateTodoClick = (newTodo) => {
     const todo = { ...updatedTodo, ...newTodo };
     setTodo(todo);
+  };
+
+  const completeClick = (e) => {
+    setTodo({ ...todo, completed: e.target.checked });
   };
 
   return (
@@ -36,7 +39,7 @@ function UpdateTodoCard({ todo, updateTodo, onCancel }) {
                 id="completed"
                 name="completed"
                 defaultChecked={updatedTodo.completed}
-                onChange={(e) => updateTodo({ completed: e.target.checked })}
+                onChange={completeClick}
               />
               <div className="row">
                 <button

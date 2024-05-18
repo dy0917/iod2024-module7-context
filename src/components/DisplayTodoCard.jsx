@@ -2,19 +2,20 @@ import { useState } from 'react';
 import UpdateTodoCard from './UpdateTodoCard';
 export default function DisplayTodoCard({
   todo,
-  updateTodo,
+  
   setEditView,
   deleteTodo,
 }) {
   const onCompletedChange = (todo) => {
     const updatedTodo = { ...todo, completed: !todo.completed };
-    updateTodo(updatedTodo);
+    // updateTodo(updatedTodo);
   };
 
   return (
     <div className="card">
       <div className="card-body">
         <div className="d-flex">
+          {todo.completed}
           <input
             type="checkbox"
             id="completed"
